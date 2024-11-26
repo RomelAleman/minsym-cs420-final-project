@@ -1,0 +1,33 @@
+Program:
+    statements*=Statement
+;
+
+Statement:
+    PrintStatement|AssignStatement|IfStatement|IgnoreStatement
+;
+
+PrintStatement:
+    'print' (BOOL|var=ID|expr=Expression)
+;
+
+AssignStatement:
+    'assign' (BOOL|val=ID|expr=Expression) 'to' var=ID
+;
+
+Expression:
+    var1=ID (comparison=Comparison|operation=Operation) var2=ID
+;
+
+Comparison:
+    'is greater than or equal to' | 'is less than or equal to' | 'is greater than' | 'is less than' | 'is equal to'
+;
+
+Operation:
+    'plus' | 'minus' | 'times' | 'divided by'
+;
+
+IgnoreStatement:
+    'ignore'
+        /(.|\s)*?/
+    'end ignore'
+;

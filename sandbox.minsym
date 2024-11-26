@@ -1,0 +1,71 @@
+print "Hello, World!"
+
+assign 21 to age
+
+assign age is greater than 21 or equal to 21 to canDrink
+
+if canDrink is equal to true
+    print "This person can drink"
+else 
+    print "This person can't drink"
+
+ignore 
+assign remainder of 5 divided by 2 to moduloEquivelent
+assign 5 times 5 to asteriskEquivelent
+assign 6 divided by 2 to forwardSlashEquivelent
+assign 5 is equal to 2 to doubleEqualEquivelent
+end ignore
+
+assign 1 to i
+
+while i is less than 21
+    print i and " "
+    iterate i
+end while
+
+
+
+assign 1 to i
+
+from i to 100
+    if remainder of i divided by 15 is equal to 0
+        print "FIZZBUZZ" and end line
+    else if remainder of i divided by 3 is equal to 0
+        print "FIZZ" and end line
+    else if remainder of i divided by 5 is equal to 0
+        print "BUZZ" and end line
+    else
+        print i and end line 
+end from
+
+assign 0 to i
+
+
+
+
+function {function name} returns {type} with parameters {type, name}*
+
+
+define person as string name and number age
+    function canDrink returns string with parameters name and age
+        if age is greater than 20
+            return name and " can drink"
+        else 
+            return name and " can't drink"
+
+new person person1 as "Romel Aleman" and 22 
+
+assign 20 to person1(age)
+
+if person1(function canDrink) is equal to true
+    print person1(name) and " is old enough to drink"
+else
+    print person1(name) and " is not enough to drink"
+
+
+
+
+
+assign 21 is less than person1 age to canDrink
+
+print person1 name and " can drink is " and canDrink

@@ -1,0 +1,28 @@
+print "Hello, World!"
+
+assign 21 to age
+
+assign age is greater than or equal to 21 to canDrink
+
+ignore
+if canDrink is equal to true
+    print "This person can drink"
+else 
+    print "This person can't drink"
+end ignore
+
+ignore 
+assign remainder of 5 divided by 2 to moduloEquivelent
+assign 5 times 5 to asteriskEquivelent
+assign 6 divided by 2 to forwardSlashEquivelent
+assign 5 is equal to 2 to doubleEqualEquivelent
+end ignore
+
+assign 1 to i
+
+ignore
+while i is less than 21
+    print i and " "
+    iterate i
+end while
+end ignore
