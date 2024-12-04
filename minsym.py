@@ -12,34 +12,97 @@ class program_state:
 def interpret_val(val, state):
     if val in state.vars:
         return state.vars[val]
-    elif val is bool:
+    elif isinstance(val, str):
+        return val.replace('"', '')
+    elif isinstance(val, int):
         return val
-    
-def interpret_else_if(state, else_statement):
-    
+    elif isinstance(val, float):
+        return val
+    elif isinstance(val, bool):
+        return val
+    elif val.__class__.__name__ == 'Comparison':
+        return handle_comparison(state, val)
+    elif val.__class__.__name__ == 'Operation':
+        return handle_operation(state, val)
+
+def handle_comparison(state, comparison):
+    match comparison.operator:
+        case 'is not less than or equal to':
+            return not interpret_val(comparison.firstoperand, state) >= interpret_val(comparison.secondoperand, state)
+        case 'is not greater than or equal to':
+            return not interpret_val(comparison.firstoperand, state) <= interpret_val(comparison.secondoperand, state)
+        case 'is not less than':
+            return not interpret_val(comparison.firstoperand, state) > interpret_val(comparison.secondoperand, state)
+        case 'is not greater than':
+            return not interpret_val(comparison.firstoperand, state) < interpret_val(comparison.secondoperand, state)
+        case 'is equal to':
+            return interpret_val(comparison.firstoperand, state) == interpret_val(comparison.secondoperand, state)
+        case 'is not equal to':
+            return interpret_val(comparison.firstoperand, state) != interpret_val(comparison.secondoperand, state)
+        case 'is less than or equal to':
+            return interpret_val(comparison.firstoperand, state) <= interpret_val(comparison.secondoperand, state)
+        case 'is greater than or equal to':
+            return interpret_val(comparison.firstoperand, state) >= interpret_val(comparison.secondoperand, state)
+        case 'is less than':
+            return interpret_val(comparison.firstoperand, state) < interpret_val(comparison.secondoperand, state)
+        case 'is greater than':
+            return interpret_val(comparison.firstoperand, state) > interpret_val(comparison.secondoperand, state)
+
+def handle_operation(state, operation):
+    match operation.operator:
+        case 'plus':
+            return interpret_val(operation.firstoperand, state) + interpret_val(operation.secondoperand, state)
+        case 'minus':
+            return interpret_val(operation.firstoperand, state) - interpret_val(operation.secondoperand, state)
+        case 'times':
+            return interpret_val(operation.firstoperand, state) * interpret_val(operation.secondoperand, state)
+        case 'divided by':
+            return interpret_val(operation.firstoperand, state) / interpret_val(operation.secondoperand, state)
+        case 'modulo':
+            return interpret_val(operation.firstoperand, state) % interpret_val(operation.secondoperand, state)
+        case 'to the power of':
+            return interpret_val(operation.firstoperand, state) ** interpret_val(operation.secondoperand, state)
+
+#delete later
+def handle_if_blocks(state, block):
+    if isinstance(block.conditional, bool):
+        return block.conditional
+    else:
+        return interpret_val(block.conditional, state) 
 
 def interpret(state, model_statements):
     for stmt in model_statements:
         if stmt.__class__.__name__ == "PrintStatement":
             for val in stmt.vals:
-                if isinstance(val, bool):
-                    print(val)
-                elif '"' in val or val.isdigit():
-                    print(val.replace('"', ''))
-                else:
-                    print(interpret_val(val, state))   
+                print(interpret_val(val, state), end="")   
+            print()
         elif stmt.__class__.__name__ == "AssignmentStatement":
-            state.vars[stmt.var] = stmt.val
+            state.vars[stmt.var] = interpret_val(stmt.val, state)
+        elif stmt.__class__.__name__ == "IterateStatement":
+            if stmt.var in state.vars:
+                if hasattr(stmt, 'multiple'):
+                    state.vars[stmt.var] += stmt.multiple
+                else:
+                    state.vars[stmt.var] += 1
+                
         elif stmt.__class__.__name__ == "IfStatement":
-            if stmt.conditional:
-                    interpret(state, stmt.statements)
+            unfinished = True
+            if handle_if_blocks(state, stmt.ifblock):
+                interpret(state, stmt.ifblock.statements)
             else:
-                if stmt.elsestatement is not None:
-                    if stmt.elsestatement.elseif is not None:
-                        interpret_else_if(state, stmt.elsestatement)
-                    
+                if stmt.elseifblocks is not None:
+                    for elseifblock in stmt.elseifblocks:
+                        if handle_if_blocks(state, elseifblock):
+                            interpret(state, elseifblock.statements)
+                            unfinished = False
+                            break
+                if unfinished and stmt.elseblock is not None:
+                    interpret(state, stmt.elseblock.statements)
+        elif stmt.__class__.__name__ == "WhileStatement":
+            while interpret_val(stmt.conditional, state):
+                interpret(state, stmt.statements)
 
-        
+
 def main(debug=False):
     this_folder = dirname(__file__)
 

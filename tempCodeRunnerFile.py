@@ -1,2 +1,2 @@
 
-class program_state:
+def handle_comparison(state, comparison):

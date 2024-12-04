@@ -11,53 +11,78 @@
     edge[dir=black,arrowtail=empty]
 
 
-2411196411792[ label="{Program|}"]
+2365891489680[ label="{Program|}"]
 
-2411196942288[ label="{*Statement|}"]
+2365891954640[ label="{*Statement|}"]
 
-2411196942608[ label="{PrintStatement|vals: optional\<list[Value]\>\l}"]
+2365891954960[ label="{PrintStatement|vals: optional\<list[OBJECT]\>\l}"]
 
-2411196714944[ label="{AssignmentStatement|val: Value\lvar: ID\l}"]
+2365891694224[ label="{AssignmentStatement|var: id\l}"]
 
-2411196480208[ label="{IfStatement|}"]
+2365891693920[ label="{IterateStatement|var: id\lmultiple: NUMBER\l}"]
 
-2411196656064[ label="{Else|}"]
+2365891474160[ label="{*Expression|}"]
 
-2411196653616[ label="{ElseIf|}"]
+2365891634288[ label="{IfStatement|}"]
 
-2411196827216[ label="{*Conditional|}"]
+2365891841872[ label="{IfBlock|}"]
 
-2411196826704[ label="{Comparison|}"]
+2365891842128[ label="{ElseIfBlock|}"]
+
+2365891164544[ label="{ElseBlock|}"]
+
+2365891165504[ label="{WhileStatement|}"]
+
+2365891131472[ label="{*Conditional|}"]
+
+2365891132816[ label="{Comparison|}"]
+
+2365891744096[ label="{Operation|}"]
+
+2365892034832[ label="{*Operand|}"]
 
 
 
-2411196411792 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
-2411196942288 -> 2411196942608 [dir=back]
-2411196942288 -> 2411196714944 [dir=back]
-2411196942288 -> 2411196480208 [dir=back]
-2411196480208 -> 2411196827216[arrowtail=diamond, dir=both, headlabel="conditional "]
-2411196480208 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
-2411196480208 -> 2411196656064[arrowtail=diamond, dir=both, headlabel="else "]
-2411196656064 -> 2411196653616[arrowtail=diamond, dir=both, headlabel="elseif 0..*"]
-2411196656064 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
-2411196653616 -> 2411196827216[arrowtail=diamond, dir=both, headlabel="condtional "]
-2411196653616 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
-2411196827216 -> 2411196826704 [dir=back]
+2365891489680 -> 2365891954640[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2365891954640 -> 2365891954960 [dir=back]
+2365891954640 -> 2365891694224 [dir=back]
+2365891954640 -> 2365891634288 [dir=back]
+2365891954640 -> 2365891165504 [dir=back]
+2365891954640 -> 2365891693920 [dir=back]
+2365891983568[ label="{*OBJECT|}"]
+
+2365891694224 -> 2365891474160[arrowtail=diamond, dir=both, headlabel="val "]
+2365891474160 -> 2365891744096 [dir=back]
+2365891474160 -> 2365891132816 [dir=back]
+2365891634288 -> 2365891841872[arrowtail=diamond, dir=both, headlabel="ifblock "]
+2365891634288 -> 2365891842128[arrowtail=diamond, dir=both, headlabel="elseifblocks 0..*"]
+2365891634288 -> 2365891164544[arrowtail=diamond, dir=both, headlabel="elseblock "]
+2365891841872 -> 2365891131472[arrowtail=diamond, dir=both, headlabel="conditional "]
+2365891841872 -> 2365891954640[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2365891842128 -> 2365891131472[arrowtail=diamond, dir=both, headlabel="conditional "]
+2365891842128 -> 2365891954640[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2365891164544 -> 2365891954640[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2365891165504 -> 2365891131472[arrowtail=diamond, dir=both, headlabel="conditional "]
+2365891165504 -> 2365891954640[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2365891131472 -> 2365892034832[arrowtail=diamond, dir=both, headlabel="firstoperand "]
+2365891131472 -> 2365892034832[arrowtail=diamond, dir=both, headlabel="secondoperand "]
+2365891131472 -> 2365891132816 [dir=back]
+2365892034832 -> 2365891744096 [dir=back]
 match_rules [ shape=plaintext, label=< <table>
 	<tr>
-		<td><b>Operator</b></td><td>is less than or equal to|is greater than or equal to|is less than|is greater than|is equal to</td>
+		<td><b>ComparisonOperator</b></td><td>is not less than or equal to|is not greater than or equal to|is not less than|is not greater than|is not equal to|is less than or equal to|is greater than or equal to|is less than|is greater than|is equal to</td>
 	</tr>
 	<tr>
-		<td><b>Value</b></td><td>BOOL</td>
+		<td><b>OperationOperand</b></td><td>NUMBER|STRING</td>
 	</tr>
 	<tr>
-		<td><b>float</b></td><td>[0-9]+\.[0-9]+</td>
+		<td><b>OperationOperator</b></td><td>plus|minus|divided by|times|modulo|to the power of</td>
+	</tr>
+	<tr>
+		<td><b>Value</b></td><td>NUMBER|BOOL</td>
 	</tr>
 	<tr>
 		<td><b>id</b></td><td>[a-zA-Z_][a-zA-Z_0-9]*</td>
-	</tr>
-	<tr>
-		<td><b>integer</b></td><td>[0-9]+</td>
 	</tr>
 	<tr>
 		<td><b>string</b></td><td>&quot;([^&quot;\\]|\\.)*&quot;</td>
