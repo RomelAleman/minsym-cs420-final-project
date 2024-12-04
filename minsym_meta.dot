@@ -1,0 +1,68 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+2411196411792[ label="{Program|}"]
+
+2411196942288[ label="{*Statement|}"]
+
+2411196942608[ label="{PrintStatement|vals: optional\<list[Value]\>\l}"]
+
+2411196714944[ label="{AssignmentStatement|val: Value\lvar: ID\l}"]
+
+2411196480208[ label="{IfStatement|}"]
+
+2411196656064[ label="{Else|}"]
+
+2411196653616[ label="{ElseIf|}"]
+
+2411196827216[ label="{*Conditional|}"]
+
+2411196826704[ label="{Comparison|}"]
+
+
+
+2411196411792 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2411196942288 -> 2411196942608 [dir=back]
+2411196942288 -> 2411196714944 [dir=back]
+2411196942288 -> 2411196480208 [dir=back]
+2411196480208 -> 2411196827216[arrowtail=diamond, dir=both, headlabel="conditional "]
+2411196480208 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2411196480208 -> 2411196656064[arrowtail=diamond, dir=both, headlabel="else "]
+2411196656064 -> 2411196653616[arrowtail=diamond, dir=both, headlabel="elseif 0..*"]
+2411196656064 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2411196653616 -> 2411196827216[arrowtail=diamond, dir=both, headlabel="condtional "]
+2411196653616 -> 2411196942288[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2411196827216 -> 2411196826704 [dir=back]
+match_rules [ shape=plaintext, label=< <table>
+	<tr>
+		<td><b>Operator</b></td><td>is less than or equal to|is greater than or equal to|is less than|is greater than|is equal to</td>
+	</tr>
+	<tr>
+		<td><b>Value</b></td><td>BOOL</td>
+	</tr>
+	<tr>
+		<td><b>float</b></td><td>[0-9]+\.[0-9]+</td>
+	</tr>
+	<tr>
+		<td><b>id</b></td><td>[a-zA-Z_][a-zA-Z_0-9]*</td>
+	</tr>
+	<tr>
+		<td><b>integer</b></td><td>[0-9]+</td>
+	</tr>
+	<tr>
+		<td><b>string</b></td><td>&quot;([^&quot;\\]|\\.)*&quot;</td>
+	</tr>
+</table> >]
+
+
+}

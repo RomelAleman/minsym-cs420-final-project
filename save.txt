@@ -1,0 +1,80 @@
+PrintStatement:
+    'print' value=((var=ID | expr=ExpressionStatement) ('and' (var=ID | expr=ExpressionStatement))*)
+;
+
+AssignStatement:
+    'assign' (var=ID | expr=ExpressionStatement) 'to' var=ID
+;
+
+ExpressionStatement:
+    Arithmetic | Comparison | Iterate
+;
+
+Comparison:
+    var=ID ('is greater than or equal to' | 'is less than or equal to' | 'is greater than' | 'is less than' | 'is equal to') var=ID
+;
+
+Arithmetic:
+    var=ID ('plus' | 'minus' | 'times' | 'divided by' | 'modulus') var=ID
+;
+
+Iterate:
+    'iterate' var=ID
+;
+
+IfStatement:
+    'if' (var=ID | Comparison)
+        block=Block
+    ('else if'
+        block=Block)+
+    ('else'
+        block=Block)?
+;
+
+Block:
+    statements*=Statement
+;
+
+WhileStatement:
+    'while' (var=ID | condition=Comparison)
+        block=Block
+    'end while'
+;
+
+FromStatement:
+    'from' var=ID 'to' var=ID
+        block=Block
+    'end from'
+;
+
+IgnoreStatement:
+    'ignore'
+        comment=STRING
+    'end ignore'
+;
+
+
+ClassStatement:
+    'define' name=ID 'as' attributes+=Attribute[' and ']*
+        block=Block    
+;
+
+Attribute:
+    name=ID
+;
+
+FunctionStatement:
+    'function' name=ID 'with' parameters+=Paratmeter[' and ']* ('returns' type=Type)?
+;
+
+Paratmeter:
+    name=ID
+;
+
+Type:
+    'number' | 'string' | 'nothing' | 'boolean'
+;
+
+NewStatement:
+    'new' name=ID 'as' attributes+=Attribute[' and ']*
+;
