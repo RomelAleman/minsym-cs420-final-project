@@ -1,0 +1,125 @@
+Program:
+    statements*=Statement
+;
+
+Statement:
+    PrintStatement | AssignmentStatement | IfStatement | WhileStatement | IterateStatement | FromStatement | IgnoreStatement | FunctionStatement | CallStatement | ReturnStatement
+;
+
+FunctionStatement:
+    'function' funcname=id 'returns' type=Type 'with' parameters=ID ('and' parameters=ID)*
+        statements*=Statement
+    'end function'
+;
+
+ReturnStatement:
+    'return' val=Expression
+;
+
+CallStatement:
+    'function' name=id 'with' args=FunctionParameters
+;
+
+FunctionParameters:
+    Expression | Value
+;
+
+PrintStatement:
+    'print' vals=Expression ('and' vals=Expression)*
+;
+
+AssignmentStatement:
+    'assign' val=Expression 'to' var=id
+;
+
+IterateStatement:
+    'iterate' var=id ('by ' multiple=NUMBER)?
+;
+
+Expression:
+    CallStatement | Comparison | Operation | Value 
+;
+
+Value:
+    NUMBER | BOOL | id | string 
+;
+
+IfStatement:
+    ifblock=IfBlock
+    elseifblocks*=ElseIfBlock
+    (elseblock=ElseBlock)?
+    'end if'
+;
+
+IfBlock:
+    'if' conditional=Conditional
+        statements*=Statement
+;
+
+ElseIfBlock:
+    'else if' conditional=Conditional
+        statements*=Statement
+;
+
+ElseBlock:
+    'else'
+        statements*=Statement
+;
+
+WhileStatement:
+    'while' conditional=Conditional
+        whileblock=WhileBlock
+    'end while'
+;
+
+WhileBlock:
+    statements*=Statement
+;
+
+FromStatement:
+    'from' var=FromOp 'to' val=FromOp
+        statements*=Statement
+    'end from'
+;
+
+FromOp:
+    NUMBER | id
+;
+
+Conditional:
+    Comparison | BOOL
+;
+
+Comparison:
+    firstoperand=Operand operator=ComparisonOperator secondoperand=Operand
+;
+
+Operation:
+    firstoperand=OperationOperand operator=OperationOperator secondoperand=OperationOperand
+;
+
+Operand:
+    Operation | NUMBER | BOOL | id | string
+;
+
+OperationOperand:
+    NUMBER | string | id
+;
+
+ComparisonOperator:
+    'is not less than or equal to' | 'is not greater than or equal to' | 'is not less than' | 'is not greater than' | 'is not equal to' | 'is less than or equal to' | 'is greater than or equal to' | 'is less than' | 'is greater than' | 'is equal to'
+;
+
+OperationOperator:
+    'plus' | 'minus' | 'divided by' | 'times' | 'modulo' | 'to the power of'
+;
+
+Type:
+    'number' | 'string' | 'boolean'
+;
+
+IgnoreStatement: 'ignore' content=/(.|\n)*?(?=end ignore)/ 'end ignore' ; 
+
+id: /[a-zA-Z_][a-zA-Z_0-9]*/;
+string: /"([^"\\]|\\.)*"/;
+

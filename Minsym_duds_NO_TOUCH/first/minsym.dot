@@ -1,0 +1,34 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+1825236414688 -> 1825236411328 [label="statements:0" arrowtail=diamond dir=both]
+1825236411328 -> 1825236415024 [label="statements:0" arrowtail=diamond dir=both]
+1825236415024 -> 1825236415360 [label="ifblock" arrowtail=diamond dir=both]
+1825236415360 -> 1825236415696 [label="conditional" arrowtail=diamond dir=both]
+1825236415696[label="{:Comparison|+firstoperand:str='age'\l+operator:str='is greater than'\l+secondoperand:int=21\l}"]
+1825236415360 -> 1825236416032 [label="statements:0" arrowtail=diamond dir=both]
+1825236416032[label="{:ReturnStatement|+val:bool=True\l}"]
+1825236415360[label="{:IfBlock|}"]
+1825236415024 -> 1825236416368 [label="elseblock" arrowtail=diamond dir=both]
+1825236416368 -> 1825237468816 [label="statements:0" arrowtail=diamond dir=both]
+1825237468816[label="{:ReturnStatement|+val:bool=False\l}"]
+1825236416368[label="{:ElseBlock|}"]
+1825236415024[label="{:IfStatement|elseifblocks:list=[]\l}"]
+1825236411328[label="{:FunctionStatement|+funcname:str='canDrink'\l+type:str='boolean'\lparameters:list=['age']\l}"]
+1825236414688 -> 1825236416704 [label="statements:1" arrowtail=diamond dir=both]
+1825236416704 -> 1825236417040 [label="vals:0" arrowtail=diamond dir=both]
+1825236417040[label="{canDrink:CallStatement|+args:int=21\l}"]
+1825236416704[label="{:PrintStatement|}"]
+1825236414688[label="{:Program|}"]
+
+}

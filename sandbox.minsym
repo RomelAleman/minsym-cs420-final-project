@@ -36,20 +36,21 @@ end from
 
 assign 0 to i
 
-function addition returns nothing with name and age
+function addition returns string with name and age
     if age is greater than 24
-        return name and " can rent a car"
+        return name plus " can rent a car"
     else
-        return name and " cannot rent a car"
+        return name plus " cannot rent a car"
 
 print addition with "Romel Aleman" and 22
 
 define person as name and age
-    function canDrink returns string
+    function canDrink returns string with name and age
         if age is greater than 20
             return name and " can drink"
         else 
             return name and " can't drink"
+    end function
 
 new person person1 as "Romel Aleman" and 22 
 

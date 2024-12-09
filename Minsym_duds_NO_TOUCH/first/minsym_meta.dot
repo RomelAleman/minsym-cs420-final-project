@@ -1,0 +1,124 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+1925773553552[ label="{Program|}"]
+
+1925774067984[ label="{*Statement|}"]
+
+1925774068304[ label="{FunctionStatement|funcname: id\ltype: Type\lparameters: optional\<list[ID]\>\l}"]
+
+1925773758096[ label="{ReturnStatement|}"]
+
+1925773521360[ label="{CallStatement|name: id\l}"]
+
+1925773680416[ label="{*FunctionParameters|}"]
+
+1925773682864[ label="{PrintStatement|}"]
+
+1925773904464[ label="{AssignmentStatement|var: id\l}"]
+
+1925773903440[ label="{IterateStatement|var: id\lmultiple: NUMBER\l}"]
+
+1925773212752[ label="{*Expression|}"]
+
+1925773179184[ label="{IfStatement|}"]
+
+1925773180528[ label="{IfBlock|}"]
+
+1925773792208[ label="{ElseIfBlock|}"]
+
+1925767557776[ label="{ElseBlock|}"]
+
+1925773869328[ label="{WhileStatement|}"]
+
+1925773533696[ label="{WhileBlock|}"]
+
+1925773535456[ label="{FromStatement|var: FromOp\lval: FromOp\l}"]
+
+1925774206736[ label="{*Conditional|}"]
+
+1925773109168[ label="{Comparison|}"]
+
+1925773971920[ label="{Operation|}"]
+
+1925774221776[ label="{*Operand|}"]
+
+1925774222288[ label="{IgnoreStatement|content: STRING\l}"]
+
+
+
+1925773553552 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925774067984 -> 1925773682864 [dir=back]
+1925774067984 -> 1925773904464 [dir=back]
+1925774067984 -> 1925773179184 [dir=back]
+1925774067984 -> 1925773869328 [dir=back]
+1925774067984 -> 1925773903440 [dir=back]
+1925774067984 -> 1925773535456 [dir=back]
+1925774067984 -> 1925774222288 [dir=back]
+1925774067984 -> 1925774068304 [dir=back]
+1925774067984 -> 1925773521360 [dir=back]
+1925774067984 -> 1925773758096 [dir=back]
+1925774068304 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925773758096 -> 1925773212752[arrowtail=diamond, dir=both, headlabel="val "]
+1925773521360 -> 1925773680416[arrowtail=diamond, dir=both, headlabel="args "]
+1925773680416 -> 1925773212752 [dir=back]
+1925773682864 -> 1925773212752[arrowtail=diamond, dir=both, headlabel="vals 0..*"]
+1925773904464 -> 1925773212752[arrowtail=diamond, dir=both, headlabel="val "]
+1925773212752 -> 1925773521360 [dir=back]
+1925773212752 -> 1925773109168 [dir=back]
+1925773212752 -> 1925773971920 [dir=back]
+1925773179184 -> 1925773180528[arrowtail=diamond, dir=both, headlabel="ifblock "]
+1925773179184 -> 1925773792208[arrowtail=diamond, dir=both, headlabel="elseifblocks 0..*"]
+1925773179184 -> 1925767557776[arrowtail=diamond, dir=both, headlabel="elseblock "]
+1925773180528 -> 1925774206736[arrowtail=diamond, dir=both, headlabel="conditional "]
+1925773180528 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925773792208 -> 1925774206736[arrowtail=diamond, dir=both, headlabel="conditional "]
+1925773792208 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925767557776 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925773869328 -> 1925774206736[arrowtail=diamond, dir=both, headlabel="conditional "]
+1925773869328 -> 1925773533696[arrowtail=diamond, dir=both, headlabel="whileblock "]
+1925773533696 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925773535456 -> 1925774067984[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+1925774206736 -> 1925774221776[arrowtail=diamond, dir=both, headlabel="firstoperand "]
+1925774206736 -> 1925774221776[arrowtail=diamond, dir=both, headlabel="secondoperand "]
+1925774206736 -> 1925773109168 [dir=back]
+1925774221776 -> 1925773971920 [dir=back]
+match_rules [ shape=plaintext, label=< <table>
+	<tr>
+		<td><b>ComparisonOperator</b></td><td>is not less than or equal to|is not greater than or equal to|is not less than|is not greater than|is not equal to|is less than or equal to|is greater than or equal to|is less than|is greater than|is equal to</td>
+	</tr>
+	<tr>
+		<td><b>FromOp</b></td><td>NUMBER</td>
+	</tr>
+	<tr>
+		<td><b>OperationOperand</b></td><td>NUMBER</td>
+	</tr>
+	<tr>
+		<td><b>OperationOperator</b></td><td>plus|minus|divided by|times|modulo|to the power of</td>
+	</tr>
+	<tr>
+		<td><b>Type</b></td><td>number|string|boolean</td>
+	</tr>
+	<tr>
+		<td><b>Value</b></td><td>NUMBER|BOOL</td>
+	</tr>
+	<tr>
+		<td><b>id</b></td><td>[a-zA-Z_][a-zA-Z_0-9]*</td>
+	</tr>
+	<tr>
+		<td><b>string</b></td><td>&quot;([^&quot;\\]|\\.)*&quot;</td>
+	</tr>
+</table> >]
+
+
+}

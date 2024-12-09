@@ -1,0 +1,20 @@
+define person as name, age
+    function canDrink returns boolean with nothing
+        if attribute age is greater than or equal to 21 then
+            return true
+        else then
+            return false
+        end if
+    end function
+
+    function test returns boolean with nothing
+        return function canDrink with nothing
+    end function
+end define
+
+person1 is person as "romel", 20
+
+print person1 function test with nothing
+
+print "Awesome"
+

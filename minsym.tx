@@ -1,84 +1,170 @@
-Program:
-    statements*=Statement
+Program: statements*=ProgramStatement;
+
+ProgramStatement: MainStatement | CreateFunctionStatement | CreateClassStatement | IgnoreStatement;
+
+CreateFunctionStatement:
+    'function' name=ID 'returns' return_type=Type 'with' parameters=Parameter
+        (inner_function_statements*=InnerFunctionStatement)
+    'end function'
 ;
 
-Statement:
-    PrintStatement | AssignmentStatement | IfStatement | WhileStatement | IterateStatement
+CreateClassStatement:
+    'define' name=ID 'as' parameters=Parameter
+        inner_class_statements*=InnerClassStatement
+    'end define'
+;
+
+MainStatement:
+  IterateStatement | PrintStatement | AssignmentStatement | WhileStatement | IfStatement | CallFunction | CreateObjectStatement | AccessClassObject 
+;
+
+IgnoreStatement:
+   'ignore' 
+    content=PossibleIgnoreStatement
+    'end ignore'
+;
+
+PossibleIgnoreStatement:
+    /(.|\n)*?(?=end ignore)/
 ;
 
 PrintStatement:
-    'print ' vals=Expression ('and ' vals=Value)*
-;
-
-AssignmentStatement:
-    'assign ' val=Expression 'to ' var=id
-;
-
-IterateStatement:
-    'iterate' var=id ('by ' multiple=NUMBER)?
-;
-
-Expression:
-    Operation | Comparison | Value
-;
-
-Value:
-    NUMBER | BOOL | id | string 
-;
-
-IfStatement:
-    ifblock=IfBlock
-    elseifblocks*=ElseIfBlock
-    (elseblock=ElseBlock)?
-;
-
-IfBlock:
-    'if' conditional=Conditional
-        statements*=Statement
-;
-
-ElseIfBlock:
-    'else if' conditional=Conditional
-        statements*=Statement
-;
-
-ElseBlock:
-    'else' 
-        statements*=Statement
+    'print' val=Expression ('and' val=Expression)* 
 ;
 
 WhileStatement:
-    'while' conditional=Conditional
-        statements*=Statement
+    'while' condition=Conditional
+        inner_while_statements*=MainStatement
+    'end while'
+;
+
+AssignmentStatement:
+    'assign' val=Expression 'to' var=Identifier
+;
+
+CallFunction:
+    'function' name=ID 'with' args=Argument
+;
+
+IterateStatement:
+    'iterate' var=VarRef 'by' multiple=NUMBER
+;
+
+InnerFunctionStatement:
+    ReturnStatement | MainStatement
+;
+
+InnerClassStatement:
+   CreateMethodStatement
+;
+
+CreateObjectStatement:
+    object_name=ID 'is' class_name=ID 'as' args=Argument
+;
+
+AccessClassObject:
+    instance_name=ID attribute=ClassAttribute
+;
+
+CreateMethodStatement:
+    'function' name=ID 'returns' return_type=Type 'with' parameters=Parameter
+        inner_function_statements*=InnerFunctionStatement
+    'end function'
+;   
+
+IfStatement:
+    if_block=IfBlock
+    else_if_blocks*=ElseIfBlock
+    (else_block=ElseBlock)?
+    'end if'
+;
+
+IfBlock:
+    'if' condition=Conditional 'then'
+        inner_if_statements*=InnerIfStatement
+;
+
+ElseIfBlock:
+    'else if' condition=Conditional 'then'
+        inner_elif_statements*=InnerIfStatement
+;
+
+ElseBlock:
+    'else then'
+        inner_else_statements*=InnerIfStatement
+;
+
+InnerIfStatement:
+    ReturnStatement | MainStatement
 ;
 
 Conditional:
-    BOOL | Comparison
+    Comparison | BOOL | VarRef 
 ;
 
-Comparison:
-    firstoperand=Operand operator=ComparisonOperator secondoperand=Operand
+ReturnStatement:
+    'return' val=Expression
 ;
 
 Operation:
-    firstoperand=OperationOperand operator=OperationOperator secondoperand=OperationOperand
+    first=OperationOperand op=OperationOperator second=OperationOperand
 ;
 
-Operand:
-    Operation | NUMBER | BOOL | id | string
+Comparison:
+    first=ComparisonOperand op=ComparisonOperator second=ComparisonOperand
+;
+
+Identifier:
+    ID | AccessClassObject
+;
+
+ClassAttribute:
+    CallFunction | VarRef | AttrRef
+;
+
+Parameter:
+    var=ID (',' var=ID)*
+;
+
+Argument:
+    var=Variable (',' var=Variable)*
+;
+
+Expression:
+   Operation | Comparison | AccessClassObject | VarRef | AttrRef | STRING | NUMBER | BOOL | CallFunction
 ;
 
 OperationOperand:
-    NUMBER | STRING | id
-;
-
-ComparisonOperator:
-    'is not less than or equal to' | 'is not greater than or equal to' | 'is not less than' | 'is not greater than' | 'is not equal to' | 'is less than or equal to' | 'is greater than or equal to' | 'is less than' | 'is greater than' | 'is equal to'
+    AccessClassObject | VarRef | AttrRef | CallFunction | STRING | NUMBER
 ;
 
 OperationOperator:
     'plus' | 'minus' | 'divided by' | 'times' | 'modulo' | 'to the power of'
 ;
 
-id: /[a-zA-Z_][a-zA-Z_0-9]*/;
-string: /"([^"\\]|\\.)*"/;
+ComparisonOperand:
+    Operation | VarRef | AttrRef | AccessClassObject | CallFunction | STRING | NUMBER
+;
+
+ComparisonOperator:
+    'is not less than or equal to' | 'is not greater than or equal to' | 'is not less than' | 'is not greater than' | 'is not equal to' | 
+    'is less than or equal to' | 'is greater than or equal to' | 'is less than' | 'is greater than' | 'is equal to'
+;
+
+VarRef:
+    'variable' name=ID
+;
+
+AttrRef:
+    'attribute' name=ID
+;
+
+Type:
+    'number' | 'string' | 'boolean' | 'nothing'
+;
+
+Variable:
+    STRING | ID | NUMBER | BOOL
+;
+
+
