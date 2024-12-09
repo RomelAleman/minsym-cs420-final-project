@@ -136,8 +136,12 @@ def interpret_expression(state, expression):
 def handle_assignment_statement(state, statement):
     value = interpret_expression(state, statement.val)
     variable = None
-    if statement.var.__class__.__name__ == 'AccessClassObject':
-        print("var is class attribute")
+    if statement.var.__class__.__name__ == 'ObjectAttrRef':
+        if statement.var.instance_name not in state.objects:
+            print("Object '" + statement.var.instance_name + "' not found")
+            quit()
+            """add handling for object attributes, need to figure out how to dicipher whether in methon
+            or in function"""
     else:
         variable = statement.var
     state.variables[variable] = value

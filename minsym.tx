@@ -10,7 +10,7 @@ CreateFunctionStatement:
 
 CreateClassStatement:
     'define' name=ID 'as' parameters=Parameter
-        inner_class_statements*=InnerClassStatement
+        inner_class_statements*=CreateMethodStatement
     'end define'
 ;
 
@@ -52,10 +52,6 @@ IterateStatement:
 
 InnerFunctionStatement:
     ReturnStatement | MainStatement
-;
-
-InnerClassStatement:
-   CreateMethodStatement
 ;
 
 CreateObjectStatement:
@@ -115,11 +111,11 @@ Comparison:
 ;
 
 Identifier:
-    ID | AccessClassObject
+   ObjectAttrRef | VarRef | AttrRef | ID 
 ;
 
 ClassAttribute:
-    CallFunction | VarRef | AttrRef
+    CallFunction |  AttrRef | VarRef
 ;
 
 Parameter:
@@ -157,6 +153,10 @@ VarRef:
 
 AttrRef:
     'attribute' name=ID
+;
+
+ObjectAttrRef:
+    name=ID 'attribute' attr=ID
 ;
 
 Type:

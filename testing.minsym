@@ -14,7 +14,32 @@ end define
 
 person1 is person as "romel", 20
 
-print person1 function test with nothing
+assign person1 function test with nothing to working
 
-print "Awesome"
+print variable working
 
+function test2 returns boolean with nothing
+    return true
+end function
+
+assign function test2 with nothing to yay
+
+print variable yay
+
+assign 2 to i
+
+function test2 with nothing
+
+print variable i
+
+ignore
+adding assignment to class attribute
+add inheritence feature
+add can_reference feature (essntially adding external classes to temp state 
+                            that can be referenced in the class functions)
+add update function that will update any changes to class attributes made in functions
+add arrays and array manipulation
+try to make it so that arguments for functions are optional with calling (if 'nothing' is passed 
+                                                                            as a parameter arguments wont
+                                                                            be added to temp_state)
+end ignore
