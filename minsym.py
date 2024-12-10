@@ -61,7 +61,15 @@ def interpret(state, statements):
 
         elif statement.__class__.__name__ == 'IgnoreStatement':
             pass
-                    
+        
+        elif statement.__class__.__name__ == 'AddToListStatement':
+            handle_add_to_list(state, statement)
+            
+        elif statement.__class__.__name__ == 'ForStatement':
+            result = handle_for_statement(state, statement)
+            if result is not None:
+                return result
+            
 def interpret_expression(state, expression):
     if expression.__class__.__name__ == 'VarRef':
         if expression.name in state.variables:
@@ -82,75 +90,109 @@ def interpret_expression(state, expression):
     elif expression.__class__.__name__ == 'CallFunction':
         return handle_function_call(state, expression)
 
+    elif expression.__class__.__name__ == 'ObjectAttrRef':
+        if expression.instance_name in state.objects:
+            return state.objects[expression.instance_name][expression.attr]
+        else:
+            print("Object '" + expression.instance_name + "' not found")
+            quit()
+
+    elif expression.__class__.__name__ == 'List':
+        array = []
+        if expression.list_items is not None:
+            for item in expression.list_items.var:
+                array.append(interpret_expression(state, item))
+        return array
+
+    elif expression.__class__.__name__ == 'ListAccess':
+        if expression.name in state.variables:
+            if interpret_expression(state, expression.index) >= len(state.variables[expression.name]):
+                print("Item " + str(expression.index) + " out of bounds for list '" + expression.name + "'")
+                quit()
+            return state.variables[expression.name][interpret_expression(state, expression.index)]
+        else:
+            print("List '" + expression.name + "' not found")
+            quit()
+
+    elif expression.__class__.__name__ == 'LengthOf':
+        return len(interpret_expression(state, expression.val))
+
     elif expression.__class__.__name__ == 'Operation':
-        first = interpret_expression(expression.first)
-        second = interpret_expression(expression.second)    
-        try:
-            first = interpret_expression(state, expression.first)
-            second = interpret_expression(state, expression.second)
-            match expression.op:
-                case 'plus':
-                    return first + second
-                case 'minus':
-                    return first - second
-                case 'times':
-                    return first * second
-                case 'divided by':
-                    return first / second
-                case 'modulo':
-                    return first % second
-                case 'to the power of':
-                    return first ** second
-        except TypeError:
-            raise Exception("Cannot perform operation on '" + str(first) + "' and '" + str(second) + "'")
+        first = interpret_expression(state, expression.first)
+        second = interpret_expression(state, expression.second)    
+        match expression.op:
+            case 'plus':
+                return first + second
+            case 'minus':
+                return first - second
+            case 'times':
+                return first * second
+            case 'divided by':
+                return first / second
+            case 'modulo':
+                return first % second
+            case 'to the power of':
+                return first ** second
+            
     elif expression.__class__.__name__ == 'Comparison':
-        try:
-            first = interpret_expression(state, expression.first)
-            second = interpret_expression(state, expression.second)
-            match expression.op:
-                case 'is not less than or equal to':
-                    return not first <= second
-                case 'is not greater than or equal to':
-                    return not first >= second
-                case 'is not less than':
-                    return not first < second
-                case 'is not greater than':
-                    return not first > second
-                case 'is equal to':
-                    return first == second
-                case 'is not equal to':
-                    return first != second
-                case 'is less than or equal to':
-                    return first <= second
-                case 'is greater than or equal to':
-                    return first >= second
-                case 'is less than':
-                    return first < second
-                case 'is greater than':
-                    return first > second
-        except TypeError:
-            raise Exception("Cannot compare '" + str(first) + "' to '" + str(second) + "'")
+        first = interpret_expression(state, expression.first)
+        second = interpret_expression(state, expression.second)  
+        match expression.op:
+            case 'is not less than or equal to':
+                return not first <= second
+            case 'is not greater than or equal to':
+                return not first >= second
+            case 'is not less than':
+                return not first < second
+            case 'is not greater than':
+                return not first > second
+            case 'is equal to':
+                return first == second
+            case 'is not equal to':
+                return first != second
+            case 'is less than or equal to':
+                return first <= second
+            case 'is greater than or equal to':
+                return first >= second
+            case 'is less than':
+                return first < second
+            case 'is greater than':
+                return first > second
+
     elif isinstance(expression, str) or isinstance(expression, int) or isinstance(expression, float) or isinstance(expression, bool):
         return expression
 
 def handle_assignment_statement(state, statement):
     value = interpret_expression(state, statement.val)
-    variable = None
     if statement.var.__class__.__name__ == 'ObjectAttrRef':
         if statement.var.instance_name not in state.objects:
             print("Object '" + statement.var.instance_name + "' not found")
             quit()
             """add handling for object attributes, need to figure out how to dicipher whether in methon
             or in function"""
+        if statement.var.attr in state.attributes:
+            attribute = statement.var.attr
+            state.attributes[attribute] = value
+            return
+        else:
+            state.objects[statement.var.instance_name][statement.var.attr] = value
+    elif statement.var.__class__.__name__ == 'ListAccess':
+        if statement.var.name in state.variables:
+            state.variables[statement.var.name][statement.var.index] = value
+            return
+        else:
+            print("List '" + statement.var.name + "' not found")
+            quit()
     else:
         variable = statement.var
-    state.variables[variable] = value
+        state.variables[variable] = value
 
 def handle_print_statement(state, statement):
     for expression in statement.val:
-        print(interpret_expression(state, expression))
+        print(interpret_expression(state, expression), end='')
+    print()
 
-def function_parser(state, function):
+def function_parser(function):
     function_info = {}
     function_info['return_type'] = function.return_type
     function_info['parameters'] = function.parameters.var
@@ -158,15 +200,31 @@ def function_parser(state, function):
     return function_info
 
 def handle_class_creation(state, statement):
-    class_name = statement.name
-    class_parameters = statement.parameters.var
-    methods = statement.inner_class_statements
-    class_methods = {}
-    for method in methods:
-        method_info = function_parser(state, method)
-        class_methods[method.name] = method_info
-    new_class = program_class(class_name, class_parameters, class_methods)
-    state.classes[class_name] = new_class
+    if statement.parent_name != '':
+        parent_name = statement.parent_name
+        if parent_name not in state.classes:
+            print("Parent class '" + parent_name + "' not found")
+            quit()
+        else:
+            parent_class = state.classes[parent_name]
+            class_name = statement.name
+            class_parameters = parent_class.parameters + statement.parameters.var
+            class_methods = parent_class.methods
+            for method in statement.inner_class_statements:
+                method_info = function_parser(method)
+                class_methods[method.name] = method_info
+            new_class = program_class(class_name, class_parameters, class_methods)
+            state.classes[class_name] = new_class
+    else:
+        class_name = statement.name
+        class_parameters = statement.parameters.var
+        methods = statement.inner_class_statements
+        class_methods = {}
+        for method in methods:
+            method_info = function_parser( method)
+            class_methods[method.name] = method_info
+        new_class = program_class(class_name, class_parameters, class_methods)
+        state.classes[class_name] = new_class
 
 def handle_object_creation(state, statement):
     class_name = statement.class_name
@@ -209,6 +267,8 @@ def handle_object_access(state, statement):
                         i += 1
                     temp_state.functions = state.classes[object_info['class']].methods
                     result = interpret(temp_state, stmts_to_interpret)
+                    for attribute in state.classes[object_info['class']].parameters:
+                        state.objects[instance_name][attribute] = temp_state.attributes[attribute]
                     if result is not None:
                         return result
         else:
@@ -220,7 +280,7 @@ def handle_object_access(state, statement):
                 return object_info[attribute_name]
 
 def handle_function_creation(state, statement):
-    function_info = function_parser(state, statement)
+    function_info = function_parser(statement)
     state.functions[statement.name] = function_info
             
 def handle_function_call(state, statement):
@@ -242,7 +302,8 @@ def handle_function_call(state, statement):
             if function_info['return_type'] != 'nothing':
                 if (function_info['return_type'] == 'number' and (isinstance(result, int) or isinstance(result, float)) or 
                     function_info['return_type'] == 'string' and isinstance(result, str) or
-                    function_info['return_type'] == 'boolean' and isinstance(result, bool)):
+                    function_info['return_type'] == 'boolean' and isinstance(result, bool) or
+                    function_info['return_type'] == 'list' and isinstance(result, list)):
                     return result
                 else:
                     print("Function '" + statement.name + "' returned incorrect type")
@@ -277,7 +338,49 @@ def handle_while_statement(state, statement):
             return result
 
 def handle_iterate_statement(state, statement):
-    state.variables[statement.var.name] += statement.multiple
+    if statement.var.__class__.__name__ == "VarRef":
+        if statement.var.name in state.variables:
+            state.variables[statement.var.name] += statement.multiple
+        else:
+            print("Variable '" + statement.var.name + "' not found")
+            quit()
+    elif statement.var.__class__.__name__ == "AttrRef":
+        if statement.var.name in state.attributes:
+            state.attributes[statement.var.name] += statement.multiple
+        else:
+            print("Attribute '" + statement.var.name + "' not found")
+            quit()
+    elif statement.var.__class__.__name__ == "ObjectAttrRef":
+        if statement.var.instance_name in state.objects:
+            if statement.var.attr in state.objects[statement.var.instance_name]:
+                state.objects[statement.var.instance_name][statement.var.attr] += statement.multiple
+            else:
+                print("Attribute '" + statement.var.attr + "' not found in object '" + statement.var.instance_name + "'")
+                quit()
+        else:
+            print("Object '" + statement.var.instance_name + "' not found")
+            quit()
+
+def handle_add_to_list(state, statement):
+    if statement.name in state.variables:
+        for item in statement.list_items.var:
+            state.variables[statement.name].append(interpret_expression(state, item))
+    else:
+        print("List '" + statement.name + "' not found")
+        quit()
+
+def handle_for_statement(state, statement):
+    variable = statement.var
+    start = interpret_expression(state, statement.start)
+    end = interpret_expression(state, statement.end)
+    temp_state = program_state()
+    temp_state = state
+    temp_state.variables[variable] = start
+    while temp_state.variables[variable] <= end:
+        result = interpret(temp_state, statement.inner_for_statements)
+        if result is not None:
+            return result
+        temp_state.variables[variable] += 1
 
 def main(debug=False):
     this_folder = dirname(__file__)

@@ -1,0 +1,38 @@
+ignore
+Demonstration of a class that has a function to update itself if true is passed
+and the ability to update a class attribute from outside of the class
+end ignore
+
+define person as name, age
+
+    function happyBirthday returns nothing with isBirthday
+
+        if variable isBirthday then
+
+            print "Happy birthday, " and attribute name and "!"
+
+            iterate attribute age by 1
+
+        else then
+
+            print "What? It's not your birthday."
+
+        end if
+
+    end function
+
+end define
+        
+person1 is person as "Romel", 22
+
+person1 function happyBirthday with true
+
+print person1 attribute age
+
+person1 function happyBirthday with false
+
+print person1 attribute age
+
+iterate person1 attribute age by 2
+
+print person1 attribute age

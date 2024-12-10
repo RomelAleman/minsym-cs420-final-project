@@ -1,6 +1,6 @@
 Program: statements*=ProgramStatement;
 
-ProgramStatement: MainStatement | CreateFunctionStatement | CreateClassStatement | IgnoreStatement;
+ProgramStatement: MainStatement | CreateFunctionStatement | CreateClassStatement | CallFunction | IgnoreStatement;
 
 CreateFunctionStatement:
     'function' name=ID 'returns' return_type=Type 'with' parameters=Parameter
@@ -9,13 +9,17 @@ CreateFunctionStatement:
 ;
 
 CreateClassStatement:
-    'define' name=ID 'as' parameters=Parameter
+    'define' name=ID ('which inherits from' parent_name=ID)? 'as' parameters=Parameter 
         inner_class_statements*=CreateMethodStatement
     'end define'
 ;
 
 MainStatement:
-  IterateStatement | PrintStatement | AssignmentStatement | WhileStatement | IfStatement | CallFunction | CreateObjectStatement | AccessClassObject 
+  AddToListStatement | IterateStatement | PrintStatement | AssignmentStatement | WhileStatement | ForStatement | IfStatement | CallFunction | CreateObjectStatement | AccessClassObject 
+;
+
+AddToListStatement:
+    'add' '(' list_items=Item ')' 'to list' name=ID 
 ;
 
 IgnoreStatement:
@@ -30,6 +34,16 @@ PossibleIgnoreStatement:
 
 PrintStatement:
     'print' val=Expression ('and' val=Expression)* 
+;
+
+ForStatement:
+    'for' var=ID 'from' start=FromMaxeme 'to' end=FromMaxeme
+        inner_for_statements*=InnerFunctionStatement
+    'end for'
+;   
+
+FromMaxeme:
+    VarRef | ObjectAttrRef | AttrRef | NUMBER
 ;
 
 WhileStatement:
@@ -47,7 +61,11 @@ CallFunction:
 ;
 
 IterateStatement:
-    'iterate' var=VarRef 'by' multiple=NUMBER
+    'iterate' var=IterateVar 'by' multiple=NUMBER
+;
+
+IterateVar:
+    VarRef | AttrRef | ObjectAttrRef
 ;
 
 InnerFunctionStatement:
@@ -111,7 +129,7 @@ Comparison:
 ;
 
 Identifier:
-   ObjectAttrRef | VarRef | AttrRef | ID 
+   ListAccess | ObjectAttrRef | VarRef | AttrRef | ID 
 ;
 
 ClassAttribute:
@@ -127,11 +145,39 @@ Argument:
 ;
 
 Expression:
-   Operation | Comparison | AccessClassObject | VarRef | AttrRef | STRING | NUMBER | BOOL | CallFunction
+   Operation | Comparison | LengthOf | List | ListAccess |  AccessClassObject | VarRef | AttrRef | STRING | NUMBER | BOOL | CallFunction
+;
+
+List:
+    'list containing' '('(list_items=Item)?')' 
+;
+
+LengthOf:
+    'length of' val=PossibleList
+;
+
+PossibleList:
+    VarRef | ObjectAttrRef | AttrRef
+;
+
+Item:
+    var=ValidListItem (',' var=ValidListItem)*
+;
+
+ValidListItem:
+    ObjectAttrRef | VarRef | AttrRef | NUMBER | BOOL | STRING
+;
+
+ListAccess:
+    'item' index=Index 'in list' name=ID
+;
+
+Index:
+    VarRef | CallFunction | ObjectAttrRef | AttrRef |  INT
 ;
 
 OperationOperand:
-    AccessClassObject | VarRef | AttrRef | CallFunction | STRING | NUMBER
+    ListAccess | AccessClassObject | VarRef | AttrRef | CallFunction | STRING | NUMBER
 ;
 
 OperationOperator:
@@ -139,7 +185,7 @@ OperationOperator:
 ;
 
 ComparisonOperand:
-    Operation | VarRef | AttrRef | AccessClassObject | CallFunction | STRING | NUMBER
+    ListAccess | Operation | VarRef | AttrRef | AccessClassObject | CallFunction | STRING | NUMBER
 ;
 
 ComparisonOperator:
@@ -156,15 +202,15 @@ AttrRef:
 ;
 
 ObjectAttrRef:
-    name=ID 'attribute' attr=ID
+    instance_name=ID 'attribute' attr=ID
 ;
 
 Type:
-    'number' | 'string' | 'boolean' | 'nothing'
+    'number' | 'string' | 'boolean' | 'list' | 'nothing'
 ;
 
 Variable:
-    STRING | ID | NUMBER | BOOL
+   NUMBER | BOOL | STRING | ID
 ;
 
 

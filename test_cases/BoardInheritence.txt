@@ -1,0 +1,23 @@
+ignore
+Demonstration of inheritence
+end ignore
+
+define board as wood_type
+    function get_wood_type returns string with nothing
+        return attribute wood_type
+    end function
+end define
+
+define game_board which inherits from board as x, y
+    
+    function get_area returns number with nothing
+        assign attribute x times attribute y to area
+        return variable area
+    end function
+end define
+
+chess_board is game_board as "Walnut", 8, 8
+
+print chess_board function get_area with nothing
+
+print chess_board function get_wood_type with nothing

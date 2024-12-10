@@ -11,144 +11,199 @@
     edge[dir=black,arrowtail=empty]
 
 
-2225850822208[ label="{Program|}"]
+2210105290304[ label="{Program|}"]
 
-2225851326672[ label="{*ProgramStatement|}"]
+2210105737296[ label="{*ProgramStatement|}"]
 
-2225851323472[ label="{CreateFunctionStatement|name: ID\lreturn_type: Type\l}"]
+2210105744976[ label="{CreateFunctionStatement|name: ID\lreturn_type: Type\l}"]
 
-2225850994624[ label="{CreateClassStatement|name: ID\l}"]
+2210105463024[ label="{CreateClassStatement|name: ID\lparent_name: ID\l}"]
 
-2225850994320[ label="{*MainStatement|}"]
+2210105462720[ label="{*MainStatement|}"]
 
-2225850708720[ label="{IgnoreStatement|content: PossibleIgnoreStatement\l}"]
+2210105175952[ label="{AddToListStatement|name: ID\l}"]
 
-2225850935200[ label="{PrintStatement|}"]
+2210105403024[ label="{IgnoreStatement|content: PossibleIgnoreStatement\l}"]
 
-2225851143248[ label="{WhileStatement|}"]
+2210105594192[ label="{PrintStatement|}"]
 
-2225851143504[ label="{AssignmentStatement|}"]
+2210105593936[ label="{ForStatement|var: ID\l}"]
 
-2225850432832[ label="{CallFunction|name: ID\l}"]
+2210104949360[ label="{*FromMaxeme|}"]
 
-2225850431872[ label="{IterateStatement|multiple: NUMBER\l}"]
+2210104949600[ label="{WhileStatement|}"]
 
-2225850447728[ label="{*InnerFunctionStatement|}"]
+2210104915824[ label="{AssignmentStatement|}"]
 
-2225850449072[ label="{CreateObjectStatement|object_name: ID\lclass_name: ID\l}"]
+2210104917168[ label="{CallFunction|name: ID\l}"]
 
-2225851045232[ label="{AccessClassObject|instance_name: ID\l}"]
+2210105513536[ label="{IterateStatement|multiple: NUMBER\l}"]
 
-2225848875536[ label="{CreateMethodStatement|name: ID\lreturn_type: Type\l}"]
+2210105606800[ label="{*IterateVar|}"]
 
-2225851122128[ label="{IfStatement|}"]
+2210105606608[ label="{*InnerFunctionStatement|}"]
 
-2225850622816[ label="{IfBlock|}"]
+2210105139888[ label="{CreateObjectStatement|object_name: ID\lclass_name: ID\l}"]
 
-2225850624576[ label="{ElseIfBlock|}"]
+2210105141648[ label="{AccessClassObject|instance_name: ID\l}"]
 
-2225851534224[ label="{ElseBlock|}"]
+2210106236336[ label="{CreateMethodStatement|name: ID\lreturn_type: Type\l}"]
 
-2225851534384[ label="{*InnerIfStatement|}"]
+2210106236496[ label="{IfStatement|}"]
 
-2225850378160[ label="{*Conditional|}"]
+2210104813344[ label="{IfBlock|}"]
 
-2225851442640[ label="{ReturnStatement|}"]
+2210104350800[ label="{ElseIfBlock|}"]
 
-2225851441360[ label="{Operation|op: OperationOperator\l}"]
+2210106155984[ label="{ElseBlock|}"]
 
-2225849866192[ label="{Comparison|op: ComparisonOperator\l}"]
+2210106159184[ label="{*InnerIfStatement|}"]
 
-2225851571664[ label="{*Identifier|}"]
+2210106159312[ label="{*Conditional|}"]
 
-2225851571792[ label="{*ClassAttribute|}"]
+2210106159440[ label="{ReturnStatement|}"]
 
-2225851571920[ label="{Parameter|var: optional\<list[ID]\>\l}"]
+2210106159568[ label="{Operation|op: OperationOperator\l}"]
 
-2225851572048[ label="{Argument|var: optional\<list[Variable]\>\l}"]
+2210106159696[ label="{Comparison|op: ComparisonOperator\l}"]
 
-2225851572176[ label="{*Expression|}"]
+2210106159824[ label="{*Identifier|}"]
 
-2225851572304[ label="{*OperationOperand|}"]
+2210106159952[ label="{*ClassAttribute|}"]
 
-2225851572560[ label="{*ComparisonOperand|}"]
+2210106160080[ label="{Parameter|var: optional\<list[ID]\>\l}"]
 
-2225851572816[ label="{VarRef|name: ID\l}"]
+2210106160208[ label="{Argument|var: optional\<list[Variable]\>\l}"]
 
-2225851572944[ label="{AttrRef|name: ID\l}"]
+2210106160336[ label="{*Expression|}"]
 
-2225851573072[ label="{ObjectAttrRef|name: ID\lattr: ID\l}"]
+2210106160464[ label="{List|}"]
+
+2210106160592[ label="{LengthOf|}"]
+
+2210106160720[ label="{*PossibleList|}"]
+
+2210106160848[ label="{Item|}"]
+
+2210106160976[ label="{*ValidListItem|}"]
+
+2210106161104[ label="{ListAccess|name: ID\l}"]
+
+2210106161232[ label="{*Index|}"]
+
+2210106161360[ label="{*OperationOperand|}"]
+
+2210106161616[ label="{*ComparisonOperand|}"]
+
+2210106161872[ label="{VarRef|name: ID\l}"]
+
+2210106162000[ label="{AttrRef|name: ID\l}"]
+
+2210106162128[ label="{ObjectAttrRef|instance_name: ID\lattr: ID\l}"]
 
 
 
-2225850822208 -> 2225851326672[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
-2225851326672 -> 2225850994320 [dir=back]
-2225851326672 -> 2225851323472 [dir=back]
-2225851326672 -> 2225850994624 [dir=back]
-2225851326672 -> 2225850708720 [dir=back]
-2225851323472 -> 2225851571920[arrowtail=diamond, dir=both, headlabel="parameters "]
-2225851323472 -> 2225850447728[arrowtail=diamond, dir=both, headlabel="inner_function_statements 0..*"]
-2225850994624 -> 2225851571920[arrowtail=diamond, dir=both, headlabel="parameters "]
-2225850994624 -> 2225848875536[arrowtail=diamond, dir=both, headlabel="inner_class_statements 0..*"]
-2225850994320 -> 2225850431872 [dir=back]
-2225850994320 -> 2225850935200 [dir=back]
-2225850994320 -> 2225851143504 [dir=back]
-2225850994320 -> 2225851143248 [dir=back]
-2225850994320 -> 2225851122128 [dir=back]
-2225850994320 -> 2225850432832 [dir=back]
-2225850994320 -> 2225850449072 [dir=back]
-2225850994320 -> 2225851045232 [dir=back]
-2225850935200 -> 2225851572176[arrowtail=diamond, dir=both, headlabel="val 0..*"]
-2225851143248 -> 2225850378160[arrowtail=diamond, dir=both, headlabel="condition "]
-2225851143248 -> 2225850994320[arrowtail=diamond, dir=both, headlabel="inner_while_statements 0..*"]
-2225851143504 -> 2225851572176[arrowtail=diamond, dir=both, headlabel="val "]
-2225851143504 -> 2225851571664[arrowtail=diamond, dir=both, headlabel="var "]
-2225850432832 -> 2225851572048[arrowtail=diamond, dir=both, headlabel="args "]
-2225850431872 -> 2225851572816[arrowtail=diamond, dir=both, headlabel="var "]
-2225850447728 -> 2225851442640 [dir=back]
-2225850447728 -> 2225850994320 [dir=back]
-2225850449072 -> 2225851572048[arrowtail=diamond, dir=both, headlabel="args "]
-2225851045232 -> 2225851571792[arrowtail=diamond, dir=both, headlabel="attribute "]
-2225848875536 -> 2225851571920[arrowtail=diamond, dir=both, headlabel="parameters "]
-2225848875536 -> 2225850447728[arrowtail=diamond, dir=both, headlabel="inner_function_statements 0..*"]
-2225851122128 -> 2225850622816[arrowtail=diamond, dir=both, headlabel="if_block "]
-2225851122128 -> 2225850624576[arrowtail=diamond, dir=both, headlabel="else_if_blocks 0..*"]
-2225851122128 -> 2225851534224[arrowtail=diamond, dir=both, headlabel="else_block "]
-2225850622816 -> 2225850378160[arrowtail=diamond, dir=both, headlabel="condition "]
-2225850622816 -> 2225851534384[arrowtail=diamond, dir=both, headlabel="inner_if_statements 0..*"]
-2225850624576 -> 2225850378160[arrowtail=diamond, dir=both, headlabel="condition "]
-2225850624576 -> 2225851534384[arrowtail=diamond, dir=both, headlabel="inner_elif_statements 0..*"]
-2225851534224 -> 2225851534384[arrowtail=diamond, dir=both, headlabel="inner_else_statements 0..*"]
-2225851534384 -> 2225851442640 [dir=back]
-2225851534384 -> 2225850994320 [dir=back]
-2225850378160 -> 2225849866192 [dir=back]
-2225850378160 -> 2225851572816 [dir=back]
-2225851442640 -> 2225851572176[arrowtail=diamond, dir=both, headlabel="val "]
-2225851441360 -> 2225851572304[arrowtail=diamond, dir=both, headlabel="first "]
-2225851441360 -> 2225851572304[arrowtail=diamond, dir=both, headlabel="second "]
-2225849866192 -> 2225851572560[arrowtail=diamond, dir=both, headlabel="first "]
-2225849866192 -> 2225851572560[arrowtail=diamond, dir=both, headlabel="second "]
-2225851571664 -> 2225851573072 [dir=back]
-2225851571664 -> 2225851572816 [dir=back]
-2225851571664 -> 2225851572944 [dir=back]
-2225851571792 -> 2225850432832 [dir=back]
-2225851571792 -> 2225851572944 [dir=back]
-2225851571792 -> 2225851572816 [dir=back]
-2225851572176 -> 2225851441360 [dir=back]
-2225851572176 -> 2225849866192 [dir=back]
-2225851572176 -> 2225851045232 [dir=back]
-2225851572176 -> 2225851572816 [dir=back]
-2225851572176 -> 2225851572944 [dir=back]
-2225851572176 -> 2225850432832 [dir=back]
-2225851572304 -> 2225851045232 [dir=back]
-2225851572304 -> 2225851572816 [dir=back]
-2225851572304 -> 2225851572944 [dir=back]
-2225851572304 -> 2225850432832 [dir=back]
-2225851572560 -> 2225851441360 [dir=back]
-2225851572560 -> 2225851572816 [dir=back]
-2225851572560 -> 2225851572944 [dir=back]
-2225851572560 -> 2225851045232 [dir=back]
-2225851572560 -> 2225850432832 [dir=back]
+2210105290304 -> 2210105737296[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2210105737296 -> 2210105462720 [dir=back]
+2210105737296 -> 2210105744976 [dir=back]
+2210105737296 -> 2210105463024 [dir=back]
+2210105737296 -> 2210104917168 [dir=back]
+2210105737296 -> 2210105403024 [dir=back]
+2210105744976 -> 2210106160080[arrowtail=diamond, dir=both, headlabel="parameters "]
+2210105744976 -> 2210105606608[arrowtail=diamond, dir=both, headlabel="inner_function_statements 0..*"]
+2210105463024 -> 2210106160080[arrowtail=diamond, dir=both, headlabel="parameters "]
+2210105463024 -> 2210106236336[arrowtail=diamond, dir=both, headlabel="inner_class_statements 0..*"]
+2210105462720 -> 2210105175952 [dir=back]
+2210105462720 -> 2210105513536 [dir=back]
+2210105462720 -> 2210105594192 [dir=back]
+2210105462720 -> 2210104915824 [dir=back]
+2210105462720 -> 2210104949600 [dir=back]
+2210105462720 -> 2210105593936 [dir=back]
+2210105462720 -> 2210106236496 [dir=back]
+2210105462720 -> 2210104917168 [dir=back]
+2210105462720 -> 2210105139888 [dir=back]
+2210105462720 -> 2210105141648 [dir=back]
+2210105175952 -> 2210106160848[arrowtail=diamond, dir=both, headlabel="list_items "]
+2210105594192 -> 2210106160336[arrowtail=diamond, dir=both, headlabel="val 0..*"]
+2210105593936 -> 2210104949360[arrowtail=diamond, dir=both, headlabel="start "]
+2210105593936 -> 2210104949360[arrowtail=diamond, dir=both, headlabel="end "]
+2210105593936 -> 2210105606608[arrowtail=diamond, dir=both, headlabel="inner_for_statements 0..*"]
+2210104949360 -> 2210106161872 [dir=back]
+2210104949360 -> 2210106162128 [dir=back]
+2210104949360 -> 2210106162000 [dir=back]
+2210104949600 -> 2210106159312[arrowtail=diamond, dir=both, headlabel="condition "]
+2210104949600 -> 2210105462720[arrowtail=diamond, dir=both, headlabel="inner_while_statements 0..*"]
+2210104915824 -> 2210106160336[arrowtail=diamond, dir=both, headlabel="val "]
+2210104915824 -> 2210106159824[arrowtail=diamond, dir=both, headlabel="var "]
+2210104917168 -> 2210106160208[arrowtail=diamond, dir=both, headlabel="args "]
+2210105513536 -> 2210105606800[arrowtail=diamond, dir=both, headlabel="var "]
+2210105606800 -> 2210106161872 [dir=back]
+2210105606800 -> 2210106162000 [dir=back]
+2210105606800 -> 2210106162128 [dir=back]
+2210105606608 -> 2210106159440 [dir=back]
+2210105606608 -> 2210105462720 [dir=back]
+2210105139888 -> 2210106160208[arrowtail=diamond, dir=both, headlabel="args "]
+2210105141648 -> 2210106159952[arrowtail=diamond, dir=both, headlabel="attribute "]
+2210106236336 -> 2210106160080[arrowtail=diamond, dir=both, headlabel="parameters "]
+2210106236336 -> 2210105606608[arrowtail=diamond, dir=both, headlabel="inner_function_statements 0..*"]
+2210106236496 -> 2210104813344[arrowtail=diamond, dir=both, headlabel="if_block "]
+2210106236496 -> 2210104350800[arrowtail=diamond, dir=both, headlabel="else_if_blocks 0..*"]
+2210106236496 -> 2210106155984[arrowtail=diamond, dir=both, headlabel="else_block "]
+2210104813344 -> 2210106159312[arrowtail=diamond, dir=both, headlabel="condition "]
+2210104813344 -> 2210106159184[arrowtail=diamond, dir=both, headlabel="inner_if_statements 0..*"]
+2210104350800 -> 2210106159312[arrowtail=diamond, dir=both, headlabel="condition "]
+2210104350800 -> 2210106159184[arrowtail=diamond, dir=both, headlabel="inner_elif_statements 0..*"]
+2210106155984 -> 2210106159184[arrowtail=diamond, dir=both, headlabel="inner_else_statements 0..*"]
+2210106159184 -> 2210106159440 [dir=back]
+2210106159184 -> 2210105462720 [dir=back]
+2210106159312 -> 2210106159696 [dir=back]
+2210106159312 -> 2210106161872 [dir=back]
+2210106159440 -> 2210106160336[arrowtail=diamond, dir=both, headlabel="val "]
+2210106159568 -> 2210106161360[arrowtail=diamond, dir=both, headlabel="first "]
+2210106159568 -> 2210106161360[arrowtail=diamond, dir=both, headlabel="second "]
+2210106159696 -> 2210106161616[arrowtail=diamond, dir=both, headlabel="first "]
+2210106159696 -> 2210106161616[arrowtail=diamond, dir=both, headlabel="second "]
+2210106159824 -> 2210106161104 [dir=back]
+2210106159824 -> 2210106162128 [dir=back]
+2210106159824 -> 2210106161872 [dir=back]
+2210106159824 -> 2210106162000 [dir=back]
+2210106159952 -> 2210104917168 [dir=back]
+2210106159952 -> 2210106162000 [dir=back]
+2210106159952 -> 2210106161872 [dir=back]
+2210106160336 -> 2210106159568 [dir=back]
+2210106160336 -> 2210106159696 [dir=back]
+2210106160336 -> 2210106160592 [dir=back]
+2210106160336 -> 2210106160464 [dir=back]
+2210106160336 -> 2210106161104 [dir=back]
+2210106160336 -> 2210105141648 [dir=back]
+2210106160336 -> 2210106161872 [dir=back]
+2210106160336 -> 2210106162000 [dir=back]
+2210106160336 -> 2210104917168 [dir=back]
+2210106160464 -> 2210106160848[arrowtail=diamond, dir=both, headlabel="list_items "]
+2210106160592 -> 2210106160720[arrowtail=diamond, dir=both, headlabel="val "]
+2210106160720 -> 2210106161872 [dir=back]
+2210106160720 -> 2210106162128 [dir=back]
+2210106160720 -> 2210106162000 [dir=back]
+2210106160848 -> 2210106160976[arrowtail=diamond, dir=both, headlabel="var 0..*"]
+2210106160976 -> 2210106162128 [dir=back]
+2210106160976 -> 2210106161872 [dir=back]
+2210106160976 -> 2210106162000 [dir=back]
+2210106161104 -> 2210106161232[arrowtail=diamond, dir=both, headlabel="index "]
+2210106161232 -> 2210106161872 [dir=back]
+2210106161232 -> 2210104917168 [dir=back]
+2210106161232 -> 2210106162128 [dir=back]
+2210106161232 -> 2210106162000 [dir=back]
+2210106161360 -> 2210106161104 [dir=back]
+2210106161360 -> 2210105141648 [dir=back]
+2210106161360 -> 2210106161872 [dir=back]
+2210106161360 -> 2210106162000 [dir=back]
+2210106161360 -> 2210104917168 [dir=back]
+2210106161616 -> 2210106161104 [dir=back]
+2210106161616 -> 2210106159568 [dir=back]
+2210106161616 -> 2210106161872 [dir=back]
+2210106161616 -> 2210106162000 [dir=back]
+2210106161616 -> 2210105141648 [dir=back]
+2210106161616 -> 2210104917168 [dir=back]
 match_rules [ shape=plaintext, label=< <table>
 	<tr>
 		<td><b>ComparisonOperator</b></td><td>is not less than or equal to|is not greater than or equal to|is not less than|is not greater than|is not equal to|is less than or equal to|is greater than or equal to|is less than|is greater than|is equal to</td>
@@ -160,10 +215,10 @@ match_rules [ shape=plaintext, label=< <table>
 		<td><b>PossibleIgnoreStatement</b></td><td>(.|\n)*?(?=end ignore)</td>
 	</tr>
 	<tr>
-		<td><b>Type</b></td><td>number|string|boolean|nothing</td>
+		<td><b>Type</b></td><td>number|string|boolean|list|nothing</td>
 	</tr>
 	<tr>
-		<td><b>Variable</b></td><td>STRING|ID|NUMBER|BOOL</td>
+		<td><b>Variable</b></td><td>NUMBER|BOOL|STRING|ID</td>
 	</tr>
 </table> >]
 
