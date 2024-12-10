@@ -1,0 +1,226 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+2196969910160[ label="{Program|}"]
+
+2196970523856[ label="{*ProgramStatement|}"]
+
+2196970529616[ label="{CreateFunctionStatement|name: ID\lreturn_type: Type\l}"]
+
+2196970098928[ label="{CreateClassStatement|name: ID\lparent_name: ID\l}"]
+
+2196970098624[ label="{*MainStatement|}"]
+
+2196969780240[ label="{AddToListStatement|name: ID\l}"]
+
+2196970023088[ label="{IgnoreStatement|content: PossibleIgnoreStatement\l}"]
+
+2196970246992[ label="{PrintStatement|}"]
+
+2196970244432[ label="{ForStatement|var: ID\l}"]
+
+2196969552496[ label="{*FromMaxeme|}"]
+
+2196969552736[ label="{WhileStatement|}"]
+
+2196969535344[ label="{AssignmentStatement|}"]
+
+2196969536688[ label="{CallFunction|name: ID\l}"]
+
+2196970133264[ label="{IterateStatement|multiple: NUMBER\l}"]
+
+2196970209936[ label="{*IterateVar|}"]
+
+2196970209744[ label="{*InnerFunctionStatement|}"]
+
+2196969710608[ label="{CreateObjectStatement|object_name: ID\lclass_name: ID\l}"]
+
+2196969712368[ label="{AccessClassObject|instance_name: ID\l}"]
+
+2196970857136[ label="{CreateMethodStatement|name: ID\lreturn_type: Type\l}"]
+
+2196970857296[ label="{IfStatement|}"]
+
+2196969449248[ label="{IfBlock|}"]
+
+2196969923792[ label="{ElseIfBlock|}"]
+
+2196970778704[ label="{ElseBlock|}"]
+
+2196970778832[ label="{*InnerIfStatement|}"]
+
+2196970778960[ label="{*Conditional|}"]
+
+2196970779088[ label="{ReturnStatement|}"]
+
+2196970779216[ label="{Operation|op: OperationOperator\l}"]
+
+2196970779344[ label="{Comparison|op: ComparisonOperator\l}"]
+
+2196970779472[ label="{*Identifier|}"]
+
+2196970779600[ label="{*ClassAttribute|}"]
+
+2196970779728[ label="{Parameter|var: optional\<list[ID]\>\l}"]
+
+2196970779856[ label="{Argument|var: optional\<list[Variable]\>\l}"]
+
+2196970779984[ label="{*Expression|}"]
+
+2196970780112[ label="{List|}"]
+
+2196970780240[ label="{LengthOf|}"]
+
+2196970780368[ label="{*PossibleList|}"]
+
+2196970780496[ label="{Item|}"]
+
+2196970780624[ label="{*ValidListItem|}"]
+
+2196970780752[ label="{ListAccess|name: ID\l}"]
+
+2196970780880[ label="{*Index|}"]
+
+2196970781008[ label="{*OperationOperand|}"]
+
+2196970781264[ label="{*ComparisonOperand|}"]
+
+2196970781520[ label="{VarRef|name: ID\l}"]
+
+2196970781648[ label="{AttrRef|name: ID\l}"]
+
+2196970781776[ label="{ObjectAttrRef|instance_name: ID\lattr: ID\l}"]
+
+
+
+2196969910160 -> 2196970523856[arrowtail=diamond, dir=both, headlabel="statements 0..*"]
+2196970523856 -> 2196970098624 [dir=back]
+2196970523856 -> 2196970529616 [dir=back]
+2196970523856 -> 2196970098928 [dir=back]
+2196970523856 -> 2196969536688 [dir=back]
+2196970523856 -> 2196970023088 [dir=back]
+2196970529616 -> 2196970779728[arrowtail=diamond, dir=both, headlabel="parameters "]
+2196970529616 -> 2196970209744[arrowtail=diamond, dir=both, headlabel="inner_function_statements 0..*"]
+2196970098928 -> 2196970779728[arrowtail=diamond, dir=both, headlabel="parameters "]
+2196970098928 -> 2196970857136[arrowtail=diamond, dir=both, headlabel="inner_class_statements 0..*"]
+2196970098624 -> 2196969780240 [dir=back]
+2196970098624 -> 2196970133264 [dir=back]
+2196970098624 -> 2196970246992 [dir=back]
+2196970098624 -> 2196969535344 [dir=back]
+2196970098624 -> 2196969552736 [dir=back]
+2196970098624 -> 2196970244432 [dir=back]
+2196970098624 -> 2196970857296 [dir=back]
+2196970098624 -> 2196969536688 [dir=back]
+2196970098624 -> 2196969710608 [dir=back]
+2196970098624 -> 2196969712368 [dir=back]
+2196969780240 -> 2196970780496[arrowtail=diamond, dir=both, headlabel="list_items "]
+2196970246992 -> 2196970779984[arrowtail=diamond, dir=both, headlabel="val 0..*"]
+2196970244432 -> 2196969552496[arrowtail=diamond, dir=both, headlabel="start "]
+2196970244432 -> 2196969552496[arrowtail=diamond, dir=both, headlabel="end "]
+2196970244432 -> 2196970209744[arrowtail=diamond, dir=both, headlabel="inner_for_statements 0..*"]
+2196969552496 -> 2196970781520 [dir=back]
+2196969552496 -> 2196970781776 [dir=back]
+2196969552496 -> 2196970781648 [dir=back]
+2196969552736 -> 2196970778960[arrowtail=diamond, dir=both, headlabel="condition "]
+2196969552736 -> 2196970098624[arrowtail=diamond, dir=both, headlabel="inner_while_statements 0..*"]
+2196969535344 -> 2196970779984[arrowtail=diamond, dir=both, headlabel="val "]
+2196969535344 -> 2196970779472[arrowtail=diamond, dir=both, headlabel="var "]
+2196969536688 -> 2196970779856[arrowtail=diamond, dir=both, headlabel="args "]
+2196970133264 -> 2196970209936[arrowtail=diamond, dir=both, headlabel="var "]
+2196970209936 -> 2196970781520 [dir=back]
+2196970209936 -> 2196970781648 [dir=back]
+2196970209936 -> 2196970781776 [dir=back]
+2196970209744 -> 2196970779088 [dir=back]
+2196970209744 -> 2196970098624 [dir=back]
+2196969710608 -> 2196970779856[arrowtail=diamond, dir=both, headlabel="args "]
+2196969712368 -> 2196970779600[arrowtail=diamond, dir=both, headlabel="attribute "]
+2196970857136 -> 2196970779728[arrowtail=diamond, dir=both, headlabel="parameters "]
+2196970857136 -> 2196970209744[arrowtail=diamond, dir=both, headlabel="inner_function_statements 0..*"]
+2196970857296 -> 2196969449248[arrowtail=diamond, dir=both, headlabel="if_block "]
+2196970857296 -> 2196969923792[arrowtail=diamond, dir=both, headlabel="else_if_blocks 0..*"]
+2196970857296 -> 2196970778704[arrowtail=diamond, dir=both, headlabel="else_block "]
+2196969449248 -> 2196970778960[arrowtail=diamond, dir=both, headlabel="condition "]
+2196969449248 -> 2196970778832[arrowtail=diamond, dir=both, headlabel="inner_if_statements 0..*"]
+2196969923792 -> 2196970778960[arrowtail=diamond, dir=both, headlabel="condition "]
+2196969923792 -> 2196970778832[arrowtail=diamond, dir=both, headlabel="inner_elif_statements 0..*"]
+2196970778704 -> 2196970778832[arrowtail=diamond, dir=both, headlabel="inner_else_statements 0..*"]
+2196970778832 -> 2196970779088 [dir=back]
+2196970778832 -> 2196970098624 [dir=back]
+2196970778960 -> 2196970779344 [dir=back]
+2196970778960 -> 2196970781520 [dir=back]
+2196970779088 -> 2196970779984[arrowtail=diamond, dir=both, headlabel="val "]
+2196970779216 -> 2196970781008[arrowtail=diamond, dir=both, headlabel="first "]
+2196970779216 -> 2196970781008[arrowtail=diamond, dir=both, headlabel="second "]
+2196970779344 -> 2196970781264[arrowtail=diamond, dir=both, headlabel="first "]
+2196970779344 -> 2196970781264[arrowtail=diamond, dir=both, headlabel="second "]
+2196970779472 -> 2196970780752 [dir=back]
+2196970779472 -> 2196970781776 [dir=back]
+2196970779472 -> 2196970781520 [dir=back]
+2196970779472 -> 2196970781648 [dir=back]
+2196970779600 -> 2196969536688 [dir=back]
+2196970779600 -> 2196970781648 [dir=back]
+2196970779600 -> 2196970781520 [dir=back]
+2196970779984 -> 2196970779216 [dir=back]
+2196970779984 -> 2196970779344 [dir=back]
+2196970779984 -> 2196970780240 [dir=back]
+2196970779984 -> 2196970780112 [dir=back]
+2196970779984 -> 2196970780752 [dir=back]
+2196970779984 -> 2196969712368 [dir=back]
+2196970779984 -> 2196970781520 [dir=back]
+2196970779984 -> 2196970781648 [dir=back]
+2196970779984 -> 2196969536688 [dir=back]
+2196970780112 -> 2196970780496[arrowtail=diamond, dir=both, headlabel="list_items "]
+2196970780240 -> 2196970780368[arrowtail=diamond, dir=both, headlabel="val "]
+2196970780368 -> 2196970781520 [dir=back]
+2196970780368 -> 2196970781776 [dir=back]
+2196970780368 -> 2196970781648 [dir=back]
+2196970780496 -> 2196970780624[arrowtail=diamond, dir=both, headlabel="var 0..*"]
+2196970780624 -> 2196970781776 [dir=back]
+2196970780624 -> 2196970781520 [dir=back]
+2196970780624 -> 2196970781648 [dir=back]
+2196970780752 -> 2196970780880[arrowtail=diamond, dir=both, headlabel="index "]
+2196970780880 -> 2196970781520 [dir=back]
+2196970780880 -> 2196969536688 [dir=back]
+2196970780880 -> 2196970781776 [dir=back]
+2196970780880 -> 2196970781648 [dir=back]
+2196970781008 -> 2196970780752 [dir=back]
+2196970781008 -> 2196969712368 [dir=back]
+2196970781008 -> 2196970781520 [dir=back]
+2196970781008 -> 2196970781648 [dir=back]
+2196970781008 -> 2196969536688 [dir=back]
+2196970781264 -> 2196970780752 [dir=back]
+2196970781264 -> 2196970779216 [dir=back]
+2196970781264 -> 2196970781520 [dir=back]
+2196970781264 -> 2196970781648 [dir=back]
+2196970781264 -> 2196969712368 [dir=back]
+2196970781264 -> 2196969536688 [dir=back]
+match_rules [ shape=plaintext, label=< <table>
+	<tr>
+		<td><b>ComparisonOperator</b></td><td>is not less than or equal to|is not greater than or equal to|is not less than|is not greater than|is not equal to|is less than or equal to|is greater than or equal to|is less than|is greater than|is equal to</td>
+	</tr>
+	<tr>
+		<td><b>OperationOperator</b></td><td>plus|minus|divided by|times|modulo|to the power of</td>
+	</tr>
+	<tr>
+		<td><b>PossibleIgnoreStatement</b></td><td>(.|\n)*?(?=end ignore)</td>
+	</tr>
+	<tr>
+		<td><b>Type</b></td><td>number|string|boolean|list|nothing</td>
+	</tr>
+	<tr>
+		<td><b>Variable</b></td><td>NUMBER|BOOL|STRING|ID</td>
+	</tr>
+</table> >]
+
+
+}

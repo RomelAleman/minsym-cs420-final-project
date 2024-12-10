@@ -1,4 +1,5 @@
 from os.path import join, dirname
+from pathlib import Path
 
 from textx import metamodel_from_file
 from textx.export import metamodel_export, model_export
@@ -384,15 +385,18 @@ def handle_for_statement(state, statement):
 
 def main(debug=False):
     this_folder = dirname(__file__)
+    
+    testing_file_path = Path('..') / 'testing.minsym'
+    dot_file_path = Path('..') / 'dot' / 'minsym.dot'
+    meta_dot_file_path = Path('..') / 'dot' / 'minsym_meta.dot'
 
     mm = metamodel_from_file(join(this_folder, 'minsym.tx'), debug=False)
-    metamodel_export(mm, join(this_folder, 'minsym_meta.dot'))
+    metamodel_export(mm, join(this_folder, meta_dot_file_path))
 
     # checks syntax of program
-
-
-    model = mm.model_from_file(join(this_folder, 'testing.minsym'))
-    model_export(model, join(this_folder, 'minsym.dot'))
+    
+    model = mm.model_from_file(join(this_folder, testing_file_path))
+    model_export(model, join(this_folder, dot_file_path))
 
     main_program_state = program_state()
     statements = model.statements

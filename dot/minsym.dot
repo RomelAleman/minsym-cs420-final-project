@@ -1,0 +1,18 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+2196969910496 -> 2196969908816 [label="statements:0" arrowtail=diamond dir=both]
+2196969908816[label="{:PrintStatement|val:list=['Hello, World!']\l}"]
+2196969910496[label="{:Program|}"]
+
+}
