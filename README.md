@@ -169,8 +169,8 @@ Given the timing of the project, I couldn't make the program as flexable with wh
 
 #### Better error handling
 
-I couldn't figure out how to capture textx exceptions and return the location of what's causing the error in the source file
+I couldn't figure out how to capture textx exceptions and return the location of what's causing the error in the source file.
 
 #### TextX cleaning
 
-The textx file is very messy, and I may need to redo it entirely 
+The textx file is very messy, and I may need to redo it entirely.
