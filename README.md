@@ -12,13 +12,13 @@ You must have both [Python](https://www.python.org/) and [TextX](https://textx.g
 
 ## Quick Start
 
-If you haven't already, download the file from the webpage: [MinSym](https://romelaleman.github.io/minsym/)
+If you haven't already, download the file from the webpage: [MinSym](https://romelaleman.github.io/minsym/). It will likely be flagged as a virus, you have my word that it is NOT malicious, I just dont know how to make a executable for these ypes of dependencies.
 
-Unzip the file to any location you want
+Unzip the file to any location you want.
 
-Open the file and run the file 'run.bat', if everything is configured correctly, this should print out "Hello, World!" to the console
+Open the file and run the file 'run.bat', if everything is configured correctly, this should print out "Hello, World!" to the console, agian, it will likely be flagged as a virus, just press the down arrow and press 'run anyway'.
 
-In the file, 'testing.minsym' will be the location of your code (feel free to use any textx editor), you can add and change the names of the minsym file, just remember to update the name in the minsym.py file
+In the file, 'testing.minsym' will be the location of your code (feel free to use any textx editor), you can add and change the names of the minsym file, just remember to update the name in the minsym.py file.
 
 ## Feature Overview
 
