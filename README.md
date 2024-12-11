@@ -8,7 +8,7 @@ I initially chose my final project to be a challenge on how expressive I can mak
 
 ## Before Quick Start
 
-You must have both [Python](https://www.python.org/) and [TextX](https://textx.github.io/textX/index.html) installed and configured to your environment
+You must have both [Python](https://www.python.org/) and [TextX](https://textx.github.io/textX/index.html) installed and configured to your environment.
 
 ## Quick Start
 
